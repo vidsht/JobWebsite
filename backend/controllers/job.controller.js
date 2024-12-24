@@ -81,7 +81,7 @@ export const getJobById = async(req,res) => {
 export const getAdminJobs = async(req,res) => {
     try{
         const adminId = req.id;
-        const jobs = await Job.find({created_at:adminId});
+        const jobs = await Job.find({});
         if(!jobs){
             return res.status(404).json({
                 message:"Job not found",
