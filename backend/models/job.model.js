@@ -6,11 +6,11 @@ const jobSchema = new mongoose.Schema({
          required:true,
     },
     description: {
-        tyoe:String,
+        type:String,
         required:true,
     },
     requirements: [{
-        tyep:String,
+        type:String,
     }],
     salary: {
         type:Number,
