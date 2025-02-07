@@ -1,12 +1,24 @@
-import React, { useState } from 'react'
-import { Popover, PopoverTrigger, PopoverContent  } from '../ui/popover';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import { Popover, PopoverTrigger, PopoverContent } from '../ui/popover';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { LogOut, User2 } from 'lucide-react';
 
 const Navbar = () => {
-    let [user,setUser]=useState(false);
-    return (
+    let [user, setUser] = useState(false);
+    const navigate = useNavigate(); // React Router hook for navigation
+    
+    const handleLogin = () => {
+        // Navigate to the login page
+        navigate('/login');
+    };
+    
+    const handleSignup = () => {
+        // Navigate to the signup page
+        navigate('/signup');
+    };
+        return (
         <div className='bg-white'>
             <div className='flex items-center justify-between mx-auto max-w-6xl h-16'>
                 <div>
@@ -21,14 +33,13 @@ const Navbar = () => {
                     {
                         !user ? (
                             <div className='flex items-center gap-2'>
-                                <Button variant="outline">Login</Button>
-                                <Button className="bg-purple-600 hover:bg-purple-600">Signup</Button>
+                                <Button variant="outline" onClick={handleLogin}>Login</Button>
+                                <Button className="bg-purple-600 hover:bg-purple-700" onClick={handleSignup}>Signup</Button>
                             </div>
-                        ):(
-
+                        ) : (
                     <Popover> 
                         <PopoverTrigger asChild>
-                            <Avatar className="cursor-pointer">
+                            <Avatar className="cursor-pointer" onClick={() => setPopoverOpen(!popoverOpen)}>
                                 <AvatarImage src="https://github.com/shadcn.png" />
                             </Avatar>
                         </PopoverTrigger>
@@ -44,12 +55,13 @@ const Navbar = () => {
                             </div>
                             <div className='flex flex-col text-grey-600'>
                                 <div className='flex w-fit items-center gap-2 cursor-pointer'>
-                                    <User2/>
+                                    <User2 />
                                     <Button variant="link">View Profile</Button>
                                 </div>
                                 <div className='flex w-fit items-center gap-2 cursor-pointer'>
-                                    <LogOut/>
-                                    <Button variant="link">Logout</Button></div>
+                                    <LogOut />
+                                    <Button variant="link">Logout</Button>
+                                    </div>
                             </div>
                         </PopoverContent>
                     </Popover> 
