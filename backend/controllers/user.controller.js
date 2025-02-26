@@ -26,7 +26,10 @@ export const register = async(req, res)=>{
             phoneNumber,
             password: hashedPassword,
             role,
-        })
+            profile: {
+                profilePhoto: cloudResponse.secure_url,           
+            },
+        });
         return res.status(201).json({
             message:"Account created successfully",
             success:true,
@@ -103,6 +106,13 @@ export const login =  async (req,res) => {
  export const updateProfile = async(req,res) => {
     try{
         const {fullName,email,phoneNumber,bio,skills} = req.body;
+        
+        const file = req.file;
+
+        const fileUri = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
+        let skillsArray;
         if(skills) {
             const skillsArray = skills.split(",");
         }
@@ -121,8 +131,12 @@ export const login =  async (req,res) => {
         if(bio) user.profile.bio=bio
         if(skills) user.profile.skills=skillsArray
 
-        await user.save();
+        if (cloudResponse) {
+            user.profile.resume = cloudResponse.secure_url;
+            user.profile.resumeOriginalName = file.originalname;
+        }
 
+        await user.save();
         user={
             _id:user._id,
             fullName:user.fullName,
@@ -134,9 +148,9 @@ export const login =  async (req,res) => {
 
         return res.status(200).json ({
             message:"Profile updated successfully",
-            success:true
-
-        })
+            user,
+            success:true,
+        });
 
     } catch(error){
         console.log(error)
