@@ -52,13 +52,20 @@ const UpdateProfileDialog = ({open,setOpen}) => {
           withCredentials: true
         }
       );
+      console.log("API Response:", res.data); 
+
       if (res.data.success) {
         dispatch(setUser(res.data.user));
         toast.success(res.data.message);
+        console.log("Updated Redux User:", res.data.user);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     } finally {
       setLoading(false);
     }

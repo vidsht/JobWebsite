@@ -17,7 +17,7 @@ export const registerComapny = async(req,res) =>{
             })
         }
         company = await Company.create({
-            name:companyName,
+            name:name,
             success:true
         });
         return res.status(201).json({

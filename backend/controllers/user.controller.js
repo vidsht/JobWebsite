@@ -2,6 +2,9 @@
 import {User} from "../models/user.model.js"; 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDataUri from "../utils/datauri.js"; 
+import cloudinary from "../utils/cloudinary.js";
+
 
 export const register = async(req, res)=>{
     try{
@@ -20,6 +23,15 @@ export const register = async(req, res)=>{
             })
         };   
         const hashedPassword = await bcrypt.hash(password,10)
+
+        let profilePhotoUrl = "";  // Default empty string or placeholder image URL
+
+        if (req.file) {  // Check if a file was uploaded
+            const fileUri = getDataUri(req.file);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+            profilePhotoUrl = cloudResponse.secure_url;
+        }
+
         await User.create ({
             fullName,
             email,
@@ -27,7 +39,7 @@ export const register = async(req, res)=>{
             password: hashedPassword,
             role,
             profile: {
-                profilePhoto: cloudResponse.secure_url,           
+                profilePhoto: profilePhotoUrl,           
             },
         });
         return res.status(201).json({
