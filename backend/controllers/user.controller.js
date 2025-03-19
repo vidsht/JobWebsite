@@ -83,7 +83,7 @@ export const login =  async (req,res) => {
         const tokenData = {
             userId: user._id
         }
-        const token = await jwt.sign(tokenData,process.env.SECRET_KEY,{expiresIn:'1d'})
+        const token = jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' })
 
         user={
             _id:user._id,
@@ -106,7 +106,7 @@ export const login =  async (req,res) => {
 
  export const logout = async(req,res) => {
     try{
-        return res.status(200).cookies("token","",{maxAge:0}).json ({
+        return res.status(200).cookie("token","",{maxAge:0}).json ({
             message:"Logged Out successfully",
             success:true
         })
@@ -126,7 +126,7 @@ export const login =  async (req,res) => {
 
         let skillsArray;
         if(skills) {
-            const skillsArray = skills.split(",");
+            skillsArray = skills.split(",");
         }
           
         const userId = req.id;
