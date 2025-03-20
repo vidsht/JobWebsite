@@ -7,7 +7,7 @@ import useGetAllJobs from '@/hooks/useGetAllJobs';
 // let allJobs = [1,2,3,4,5,6,7,8];
 const LatestJob = () => {
   useGetAllJobs();
-const {allJobs=[]} = useSelector(store=>store.job )
+const {allJobs} = useSelector(store=>store.job )
   return (
     <div className='max-w-6xl mx-auto my-20'>
       <h1 className='text-4xl font-bold '><span className='text-purple-600 '>Latest & Top </span>Job Openings</h1>

@@ -63,8 +63,16 @@ export const getAllJobs=async(req,res)=>{
 //student
 export const getJobById = async(req,res)=>{
   try{
-     const jobId = req.params.id;
-     const job = await Job.findById(jobId).populate({
+     const {id} = req.params;
+
+     if (!id || id === "undefined") {
+      return res.status(400).json({
+        message: "Invalid job ID",
+        success: false
+      });
+    }
+
+     const job = await Job.findById(id).populate({
       path:"applications"
      });
      if(!job){ 
