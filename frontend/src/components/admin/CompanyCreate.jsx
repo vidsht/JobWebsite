@@ -16,24 +16,23 @@ const CompanyCreate = () => {
     const dispatch = useDispatch();
     const registeredNewCompany = async () => {
         try{
-            const res = await axios.post(`${COMPANY_API_END_POINT}/register`,
-                {name},{
+            const res = await axios.post(`${COMPANY_API_END_POINT}/register`,{
+                name},{
                     headers:{
                         'Content-Type':'application/json'
                         },
                         withCredentials:true
             }); 
-            console.log(res);
             if(res.data.success){
                 dispatch(setSingleCompany(res.data.company));
                 toast.success(res?.data?.message);
-                const companyId = res?.data?.company?._id;
-                navigate(`/admin/companies/${companyId}`)
+                const companyid = res?.data?.company?._id;
+                navigate(`/admin/companies/${companyid}`);
             }
         } catch (error) {
             console.log(error);
         }
-    };
+    }
   return (
     <div>
       <div>
@@ -49,21 +48,15 @@ const CompanyCreate = () => {
             type="text"
             className="my-2"
             placeholder="Google, Adobe etc."
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e)=>setName(e.target.value)}
             />
             <div className='flex items-center gap-2 my-10'>
-                <Button variant="outline" 
-                onClick={() => navigate("/admin/companies")}
-                >
-                    Cancel
-                </Button>
+                <Button variant="outline" onClick={()=>navigate("/admin/companies")}>Cancel</Button>
                 <Button onClick={registeredNewCompany}>Continue</Button>
             </div>
         </div>
     </div>
-  );
-};
+  )
+}
 
-export default CompanyCreate;
-
- 
+export default CompanyCreate
