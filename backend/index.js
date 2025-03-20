@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 const corsOptions={
-    origin:'http://localhost:5173',
+    origin:'https://jobhunt-m2i1.onrender.com/',
     credentials: true
     // allowedHeaders: ['Authorization', 'Content-Type'] 
 }
