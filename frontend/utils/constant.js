@@ -1,4 +1,4 @@
-export const USER_API_END_POINT="https://jobhunt-m2i1.onrender.com/api/v1/user";
-export const JOB_API_END_POINT="https://jobhunt-m2i1.onrender.com/api/v1/job";
-export const APPLICATION_API_END_POINT="https://jobhunt-m2i1.onrender.com/api/v1/application";
-export const COMPANY_API_END_POINT="https://jobhunt-m2i1.onrender.com/api/v1/company";
+export const USER_API_END_POINT="https://jobhunter-8l3n.onrender.com/api/v1/user";
+export const JOB_API_END_POINT="https://jobhunter-8l3n.onrender.com/api/v1/job";
+export const APPLICATION_API_END_POINT="https://jobhunter-8l3n.onrender.com/api/v1/application";
+export const COMPANY_API_END_POINT="https://jobhunter-8l3n.onrender.com/api/v1/company";
